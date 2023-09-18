@@ -1,0 +1,5 @@
+/**/*.*
+!apps/**/*.ts
+!apps/**/*.vue
+!apps/**/*.css
+!*.config.*
