@@ -1,3 +1,32 @@
-body {
+* {
+  box-sizing: border-box;
   margin: 0;
+  font-size: 22px;
+}
+
+#app {
+  display: flex;
+  flex-direction: column;
+  height: 100svh;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    background-color: #2f2f2f;
+    color: #f6f6f6;
+  }
+
+  a:hover {
+    color: #24c8db;
+  }
+
+  input,
+  button {
+    background-color: #0f0f0f98;
+    color: #fff;
+  }
+
+  button:active {
+    background-color: #0f0f0f69;
+  }
 }

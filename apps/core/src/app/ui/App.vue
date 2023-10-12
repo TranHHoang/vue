@@ -1,5 +1,7 @@
-<script setup lang="ts"></script>
+<script setup lang="ts">
+import { RichTextEditor } from "~/widgets/rich-text-editor";
+</script>
 
 <template>
-  <div>Hello</div>
+  <RichTextEditor />
 </template>
