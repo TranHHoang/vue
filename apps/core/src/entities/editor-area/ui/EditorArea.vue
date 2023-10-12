@@ -3,6 +3,10 @@ import { shallowRef, watchEffect } from "vue";
 import { Editor, EditorContent } from "@tiptap/vue-3";
 import { extensionStore } from "../model/extensionStore";
 
+const emit = defineEmits<{
+  editorChanged: [editor: Editor];
+}>();
+
 const editor = shallowRef<Editor>();
 
 watchEffect((onCleanup) => {
@@ -10,6 +14,7 @@ watchEffect((onCleanup) => {
     extensions: extensionStore.extensions,
     content: "This is content",
   });
+  emit("editorChanged", editor.value);
 
   onCleanup(() => {
     editor.value?.destroy();
@@ -19,7 +24,6 @@ watchEffect((onCleanup) => {
 
 <template>
   <EditorContent class="Editor" :editor="editor" />
-  <slot v-if="editor" :editor="editor"></slot>
 </template>
 
 <style scoped>
