@@ -1,50 +1,26 @@
 <script setup lang="ts">
-import { onMounted, onUnmounted, shallowRef } from "vue";
-import { open, save } from "@tauri-apps/api/dialog";
-import { UnlistenFn } from "@tauri-apps/api/event";
-import { readTextFile, writeTextFile } from "@tauri-apps/api/fs";
+import { onMounted, shallowRef } from "vue";
 import { Editor } from "@tiptap/vue-3";
 import { EditorArea, useEditorExtensionStore } from "~/entities/editor-area";
 import {
   FormatTextMenu,
   FormatTextMenuExtension,
 } from "~/features/format-text";
-import { registerEventHandlers } from "../lib/menuEvents";
+import FileDialogMenu from "./FileDialogMenu.vue";
 
 const editor = shallowRef<Editor>();
-const unlisten = shallowRef<UnlistenFn>();
 const extensionStore = useEditorExtensionStore();
 
-async function openFile() {
-  const filePath = await open({
-    filters: [{ name: "HTML", extensions: ["html"] }],
-    multiple: false,
-  });
-
-  if (typeof filePath === "string") {
-    const content = await readTextFile(filePath);
-    editor.value?.commands.setContent(content);
-  }
-}
-
-async function saveFile() {
-  const filePath = await save({ defaultPath: "test.html" });
-  if (filePath) {
-    await writeTextFile(filePath, editor.value?.getHTML() ?? "");
-  }
-}
-
-onMounted(async () => {
+onMounted(() => {
   extensionStore.add(FormatTextMenuExtension);
-  unlisten.value = await registerEventHandlers({ openFile, saveFile });
-});
-
-onUnmounted(() => {
-  unlisten.value?.();
 });
 </script>
 
 <template>
+  <FileDialogMenu
+    :content="() => editor?.getHTML()"
+    @content-load="editor?.commands.setContent($event)"
+  />
   <EditorArea @editor-change="editor = $event" />
   <FormatTextMenu v-if="editor" :editor="editor" />
 </template>
