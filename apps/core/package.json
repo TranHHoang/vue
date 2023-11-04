@@ -24,6 +24,8 @@
     "@tiptap/starter-kit": "^2.1.12",
     "@tiptap/suggestion": "^2.1.12",
     "@tiptap/vue-3": "^2.1.12",
+    "@vueuse/core": "^10.5.0",
+    "pinia": "^2.1.7",
     "vue": "^3.3.7"
   },
   "devDependencies": {
