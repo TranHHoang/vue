@@ -5,7 +5,7 @@ import coreConfigs, { coreIgnores } from "./apps/core/eslint.config.js";
 /** @type {import("eslint").Linter.FlatConfig[]} */
 export default [
   {
-    ignores: ["**/*.config.*", "**/*.d.ts", ...coreIgnores],
+    ignores: ["**/*.config.*", "**/*.d.ts", "**/assets/*", ...coreIgnores],
   },
   js.configs.recommended,
   ...coreConfigs,

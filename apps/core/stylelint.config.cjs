@@ -6,4 +6,7 @@ const vueStandard = require("stylelint-config-standard-vue");
 module.exports = {
   ...configStandard,
   ...vueStandard,
+  rules: {
+    "selector-class-pattern": "^[a-zA-Z_-][a-zA-Z_0-9-]*$",
+  },
 };

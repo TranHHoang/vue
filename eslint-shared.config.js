@@ -58,8 +58,8 @@ export const rules = {
     {
       groups: [
         [
-          "^\\w",
           "^@",
+          "^\\w",
           // Import alias ~
           "^~(/.*|$)",
           // Side effect imports.

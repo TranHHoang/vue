@@ -60,6 +60,8 @@ export default [
             .filter((v) => v.from.length > 0),
         },
       ],
+      // eslint-plugin-import
+      "import/namespace": "off", // TODO: Enable
       // simple-import-sort
       "simple-import-sort/imports": [
         "error",
@@ -68,8 +70,9 @@ export default [
             [
               // Packages. `vue` related packages come first.
               "^vue",
-              "^\\w",
+              "^@vue.+",
               "^@",
+              "^\\w",
               // Other layers
               ...layers.map((v) => `^~/${v}(/.*|$)`),
               "^~/assets(/.*|$)",
