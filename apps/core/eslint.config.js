@@ -33,7 +33,17 @@ export default [
       boundaries: boundriesPlugin,
     },
     rules: {
-      ...rules,
+      ...rules,      
+      "no-restricted-imports": [
+        "error",
+        {
+          paths: [{
+            name: "vue",
+            importNames: ["reactive", "watchEffect"],
+            message: "Please use 'ref' and 'watch' instead. Consider using 'Pinia' for global store"
+          }]
+        }
+      ],
       // Boundaries
       ...boundriesPlugin.configs.strict.rules,
       "boundaries/entry-point": [
@@ -60,8 +70,6 @@ export default [
             .filter((v) => v.from.length > 0),
         },
       ],
-      // eslint-plugin-import
-      "import/namespace": "off", // TODO: Enable
       // simple-import-sort
       "simple-import-sort/imports": [
         "error",
@@ -94,11 +102,14 @@ export default [
     },
     settings: {
       ...settings,
+      // eslint-plugin-import
       "import/resolver": {
         typescript: {
           project: [`./${FOLDER}/tsconfig.json`],
         },
       },
+      "import/ignore": ["@tauri-apps/api"],
+      // eslint-plugin-boundaries
       "boundaries/ignore": [`${FOLDER}/src/main.ts`],
       "boundaries/elements": layers.map((type) => ({
         type,
