@@ -1,6 +1,7 @@
-import { reactive } from "vue";
+import { readonly, ref } from "vue";
 import { StarterKit, type StarterKitOptions } from "@tiptap/starter-kit";
 import { type Extensions } from "@tiptap/vue-3";
+import { defineStore } from "pinia";
 
 export const starterkitDefaultOptions: StarterKitOptions = {
   blockquote: false,
@@ -23,26 +24,22 @@ export const starterkitDefaultOptions: StarterKitOptions = {
   text: false,
 };
 
-interface ExtensionStore {
-  extensions: Extensions;
-  add(...exts: Extensions): void;
-}
+export const useEditorExtensionStore = defineStore("editorExtension", () => {
+  const extensions = ref<Extensions>([
+    StarterKit.configure({
+      ...starterkitDefaultOptions,
+      document: undefined,
+      history: undefined,
+      paragraph: undefined,
+      text: undefined,
+    }),
+  ]);
 
-function createStore() {
-  return reactive<ExtensionStore>({
-    extensions: [
-      StarterKit.configure({
-        ...starterkitDefaultOptions,
-        document: undefined,
-        history: undefined,
-        paragraph: undefined,
-        text: undefined,
-      }),
-    ],
+  const actions = {
     add(...exts: Extensions) {
-      this.extensions.push(...exts);
+      extensions.value.push(...exts);
     },
-  });
-}
+  };
 
-export const extensionStore = createStore();
+  return { extensions: readonly(extensions), ...actions };
+});

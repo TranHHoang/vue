@@ -1,25 +1,30 @@
 <script setup lang="ts">
-import { shallowRef, watchEffect } from "vue";
+import { shallowRef, watch } from "vue";
 import { Editor, EditorContent } from "@tiptap/vue-3";
-import { extensionStore } from "../model/extensionStore";
+import { useEditorExtensionStore } from "../model/extensionStore";
 
 const emit = defineEmits<{
-  editorChanged: [editor: Editor];
+  editorChange: [editor: Editor];
 }>();
 
 const editor = shallowRef<Editor>();
+const extensionStore = useEditorExtensionStore();
 
-watchEffect((onCleanup) => {
-  editor.value = new Editor({
-    extensions: extensionStore.extensions,
-    content: "This is content",
-  });
-  emit("editorChanged", editor.value);
+watch(
+  extensionStore.extensions,
+  (extensions, _, onCleanup) => {
+    editor.value = new Editor({
+      extensions: [...extensions],
+      content: "This is content",
+    });
+    emit("editorChange", editor.value);
 
-  onCleanup(() => {
-    editor.value?.destroy();
-  });
-});
+    onCleanup(() => {
+      editor.value?.destroy();
+    });
+  },
+  { immediate: true }
+);
 </script>
 
 <template>

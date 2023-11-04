@@ -4,7 +4,7 @@ import { open, save } from "@tauri-apps/api/dialog";
 import { UnlistenFn } from "@tauri-apps/api/event";
 import { readTextFile, writeTextFile } from "@tauri-apps/api/fs";
 import { Editor } from "@tiptap/vue-3";
-import { EditorArea, extensionStore } from "~/entities/editor-area";
+import { EditorArea, useEditorExtensionStore } from "~/entities/editor-area";
 import {
   FormatTextMenu,
   FormatTextMenuExtension,
@@ -13,6 +13,7 @@ import { registerEventHandlers } from "../lib/menuEvents";
 
 const editor = shallowRef<Editor>();
 const unlisten = shallowRef<UnlistenFn>();
+const extensionStore = useEditorExtensionStore();
 
 async function openFile() {
   const filePath = await open({
@@ -44,6 +45,6 @@ onUnmounted(() => {
 </script>
 
 <template>
-  <EditorArea @editor-changed="editor = $event" />
+  <EditorArea @editor-change="editor = $event" />
   <FormatTextMenu v-if="editor" :editor="editor" />
 </template>

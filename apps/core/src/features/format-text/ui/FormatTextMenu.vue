@@ -2,11 +2,12 @@
 import { ref, watch } from "vue";
 import { BubbleMenuPlugin } from "@tiptap/extension-bubble-menu";
 import { Editor } from "@tiptap/vue-3";
-import { menuItemStore } from "../model/menuItemStore";
+import { useTextMenuItemStore } from "../model/menuItemStore";
 import MenuButton from "./MenuButton.vue";
 
 const props = defineProps<{ editor: Editor }>();
 const element = ref<HTMLDivElement | null>(null);
+const menuItemStore = useTextMenuItemStore();
 
 watch([element, () => props.editor], ([element, editor], _, onCleanup) => {
   if (element == null || editor.isDestroyed) return;
