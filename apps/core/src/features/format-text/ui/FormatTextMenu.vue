@@ -1,27 +1,24 @@
 <script setup lang="ts">
-import { ref, watch } from "vue";
-import { BubbleMenuPlugin } from "@tiptap/extension-bubble-menu";
+import { onMounted, onUnmounted, ref } from "vue";
 import { Editor } from "@tiptap/vue-3";
-import { useTextMenuItemStore } from "../model/menuItemStore";
+import { useEditorExtensionStore } from "~/entities/editor-area";
+import { FormatTextMenuExt } from "../lib/menuExt";
+import { useFormatTextMenuStore } from "../model/menuStore";
 import MenuButton from "./MenuButton.vue";
 
 const props = defineProps<{ editor: Editor }>();
-const element = ref<HTMLDivElement | null>(null);
-const menuItemStore = useTextMenuItemStore();
 
-watch([element, () => props.editor], ([element, editor], _, onCleanup) => {
-  if (element == null || editor.isDestroyed) return;
+const element = ref<HTMLDivElement>();
 
-  const pluginKey = "FormatTextMenu";
-  const plugin = BubbleMenuPlugin({
-    pluginKey,
-    editor,
-    element,
-  });
-  editor.registerPlugin(plugin);
+const extensionStore = useEditorExtensionStore();
+const menuItemStore = useFormatTextMenuStore();
 
-  onCleanup(() => {
-    editor.unregisterPlugin(pluginKey);
+onMounted(() => {
+  const ext = FormatTextMenuExt.configure({ element: element.value });
+  extensionStore.add(ext);
+
+  onUnmounted(() => {
+    extensionStore.remove(ext);
   });
 });
 </script>

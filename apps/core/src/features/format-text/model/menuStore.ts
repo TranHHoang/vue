@@ -1,17 +1,13 @@
-import { Component, readonly, ref } from "vue";
-import { ChainedCommands, Editor } from "@tiptap/vue-3";
+import { readonly, ref } from "vue";
+import { ChainedCommands } from "@tiptap/vue-3";
 import { defineStore } from "pinia";
 
 interface MenuItem {
   name: string;
-  component?: Component<{
-    name: string;
-    editor: Editor;
-  }>;
   onCommand: (cmd: ChainedCommands) => ChainedCommands;
 }
 
-export const useTextMenuItemStore = defineStore("formatTextMenuItem", () => {
+export const useFormatTextMenuStore = defineStore("formatTextMenu", () => {
   const items = ref<MenuItem[]>([
     {
       name: "bold",

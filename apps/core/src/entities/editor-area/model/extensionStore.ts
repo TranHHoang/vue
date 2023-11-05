@@ -1,6 +1,6 @@
 import { readonly, ref } from "vue";
 import { StarterKit, type StarterKitOptions } from "@tiptap/starter-kit";
-import { type Extensions } from "@tiptap/vue-3";
+import type { AnyExtension, Extensions } from "@tiptap/vue-3";
 import { defineStore } from "pinia";
 
 export const starterkitDefaultOptions: StarterKitOptions = {
@@ -38,6 +38,10 @@ export const useEditorExtensionStore = defineStore("editorExtension", () => {
   const actions = {
     add(...exts: Extensions) {
       extensions.value.push(...exts);
+    },
+    remove(extension: AnyExtension) {
+      const index = extensions.value.indexOf(extension);
+      if (index >= 0) extensions.value.splice(index, 1);
     },
   };
 
