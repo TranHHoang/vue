@@ -31,14 +31,20 @@ watch(
   <EditorContent class="Editor" :editor="editor" />
 </template>
 
-<style scoped>
+<style lang="postcss" scoped>
 .Editor {
   margin: 5px;
   height: 100%;
 }
 
-:deep(.ProseMirror) {
-  padding: 10px;
-  height: 100%;
+:deep() {
+  .ProseMirror {
+    padding: 10px;
+    height: 100%;
+
+    > * {
+      margin: 5px 0;
+    }
+  }
 }
 </style>

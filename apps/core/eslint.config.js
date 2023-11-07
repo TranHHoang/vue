@@ -84,8 +84,6 @@ export default [
               // Other layers
               ...layers.map((v) => `^~/${v}(/.*|$)`),
               "^~/assets(/.*|$)",
-              // Side effect imports.
-              "^\\u0000",
               // Parent folders
               "^\\.\\.(?!/?$)",
               "^\\.\\./?$",
@@ -93,6 +91,8 @@ export default [
               "^\\./(?=.*/)(?!/?$)",
               "^\\.(?!/?$)",
               "^\\./?$",
+              // Side effect imports.
+              "^\\u0000",
               // Others
               ".",
             ],

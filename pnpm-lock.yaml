@@ -95,6 +95,12 @@ importers:
       '@tiptap/extension-superscript':
         specifier: ^2.1.12
         version: 2.1.12(@tiptap/core@2.1.12)
+      '@tiptap/extension-task-item':
+        specifier: ^2.1.12
+        version: 2.1.12(@tiptap/core@2.1.12)(@tiptap/pm@2.1.12)
+      '@tiptap/extension-task-list':
+        specifier: ^2.1.12
+        version: 2.1.12(@tiptap/core@2.1.12)
       '@tiptap/extension-text-style':
         specifier: ^2.1.12
         version: 2.1.12(@tiptap/core@2.1.12)
@@ -129,6 +135,9 @@ importers:
       '@vitejs/plugin-vue':
         specifier: ^4.4.0
         version: 4.4.0(vite@4.5.0)(vue@3.3.7)
+      postcss-nesting:
+        specifier: ^12.0.1
+        version: 12.0.1(postcss@8.4.31)
       prettier-plugin-css-order:
         specifier: ^2.0.1
         version: 2.0.1(postcss@8.4.31)(prettier@3.0.3)
@@ -906,6 +915,24 @@ packages:
 
   /@tiptap/extension-superscript@2.1.12(@tiptap/core@2.1.12):
     resolution: {integrity: sha512-ek6L+DNsrjiJieArlgTvQt1VfJ56d8V19WAPW/ciRhq88YRlTEY9nSO3QuUCSUO1nGmE5OWQpgrsiW/XZbONVw==}
+    peerDependencies:
+      '@tiptap/core': ^2.0.0
+    dependencies:
+      '@tiptap/core': 2.1.12(@tiptap/pm@2.1.12)
+    dev: false
+
+  /@tiptap/extension-task-item@2.1.12(@tiptap/core@2.1.12)(@tiptap/pm@2.1.12):
+    resolution: {integrity: sha512-uqrDTO4JwukZUt40GQdvB6S+oDhdp4cKNPMi0sbteWziQugkSMLlkYvxU0Hfb/YeziaWWwFI7ssPu/hahyk6dQ==}
+    peerDependencies:
+      '@tiptap/core': ^2.0.0
+      '@tiptap/pm': ^2.0.0
+    dependencies:
+      '@tiptap/core': 2.1.12(@tiptap/pm@2.1.12)
+      '@tiptap/pm': 2.1.12
+    dev: false
+
+  /@tiptap/extension-task-list@2.1.12(@tiptap/core@2.1.12):
+    resolution: {integrity: sha512-BUpYlEWK+Q3kw9KIiOqvhd0tUPhMcOf1+fJmCkluJok+okAxMbP1umAtCEQ3QkoCwLr+vpHJov7h3yi9+dwgeQ==}
     peerDependencies:
       '@tiptap/core': ^2.0.0
     dependencies:
@@ -3422,6 +3449,17 @@ packages:
       postcss: ^8.3.5
     dependencies:
       postcss: 8.4.31
+    dev: true
+
+  /postcss-nesting@12.0.1(postcss@8.4.31):
+    resolution: {integrity: sha512-6LCqCWP9pqwXw/njMvNK0hGY44Fxc4B2EsGbn6xDcxbNRzP8GYoxT7yabVVMLrX3quqOJ9hg2jYMsnkedOf8pA==}
+    engines: {node: ^14 || ^16 || >=18}
+    peerDependencies:
+      postcss: ^8.4
+    dependencies:
+      '@csstools/selector-specificity': 3.0.0(postcss-selector-parser@6.0.13)
+      postcss: 8.4.31
+      postcss-selector-parser: 6.0.13
     dev: true
 
   /postcss-resolve-nested-selector@0.1.1:

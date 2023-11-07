@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import { SuggestionProps } from "@tiptap/suggestion";
 import { MenuItem } from "../lib/slashMenuExt";
+import "./TiptapBlocks.css";
 
 const props = defineProps<SuggestionProps<MenuItem>>();
 </script>

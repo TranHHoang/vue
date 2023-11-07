@@ -6,14 +6,60 @@ export const useInsertBlockMenuStore = defineStore("insertBlockMenu", () => {
   const items = ref<MenuItem[]>([
     {
       title: "Heading 1",
-      description: "Basic heading",
-      onCommand: ({ editor, range }) => {
-        editor
-          .chain()
-          .focus()
-          .deleteRange(range)
-          .setNode("heading", { level: 1 })
-          .run();
+      description: "Large section heading",
+      onCommand: ({ command }) => {
+        command((cmd) => cmd.setNode("heading", { level: 1 }));
+      },
+    },
+    {
+      title: "Heading 2",
+      description: "Medium heading",
+      onCommand: ({ command }) => {
+        command((cmd) => cmd.setNode("heading", { level: 2 }));
+      },
+    },
+    {
+      title: "Heading 3",
+      description: "Small heading",
+      onCommand: ({ command }) => {
+        command((cmd) => cmd.setNode("heading", { level: 3 }));
+      },
+    },
+    {
+      title: "Bullet List",
+      description: "Create a simple bullet list",
+      onCommand: ({ command }) => {
+        command((cmd) => cmd.toggleBulletList());
+      },
+    },
+    {
+      title: "Numbered List",
+      description: "Create a list with numbering",
+      onCommand: ({ command }) => {
+        command((cmd) => cmd.toggleOrderedList());
+      },
+    },
+    {
+      title: "Quote",
+      description: "Capture a quote",
+      onCommand: ({ command }) => {
+        command((cmd) =>
+          cmd.toggleNode("paragraph", "paragraph").toggleBlockquote()
+        );
+      },
+    },
+    {
+      title: "Divider",
+      description: "Visually divide a block",
+      onCommand: ({ command }) => {
+        command((cmd) => cmd.setHorizontalRule());
+      },
+    },
+    {
+      title: "To-do List",
+      description: "Track tasks with a to-do list",
+      onCommand: ({ command }) => {
+        command((cmd) => cmd.toggleTaskList());
       },
     },
   ]);

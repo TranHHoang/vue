@@ -1,5 +1,7 @@
 import { computePosition, ReferenceElement, shift } from "@floating-ui/vue";
-import { Editor } from "@tiptap/core";
+import { ChainedCommands, Editor } from "@tiptap/core";
+import { TaskItem } from "@tiptap/extension-task-item";
+import { TaskList } from "@tiptap/extension-task-list";
 import { StarterKit, StarterKitOptions } from "@tiptap/starter-kit";
 import {
   Suggestion,
@@ -17,9 +19,12 @@ export interface MenuItem {
   onCommand: (props: MenuItemProps) => void;
 }
 
-interface MenuItemProps {
+type OnChainedCommandFn = (fn: ChainedCommands) => ChainedCommands;
+
+export interface MenuItemProps {
   editor: Editor;
   range: Range;
+  command: (fn: OnChainedCommandFn) => void;
 }
 
 type SlashMenuOptions = Omit<SuggestionOptions<MenuItem>, "editor"> & {
@@ -84,7 +89,13 @@ export const SlashMenu = Extension.create<SlashMenuOptions>({
       element: null,
       char: "/",
       command: ({ editor, range, props }) => {
-        props.onCommand({ editor, range });
+        props.onCommand({
+          editor,
+          range,
+          command: (fn) => {
+            fn(editor.chain().focus().deleteRange(range)).run();
+          },
+        });
       },
     };
   },
@@ -105,6 +116,10 @@ export const SlashMenu = Extension.create<SlashMenuOptions>({
             orderedList: {},
           };
         },
+      }),
+      TaskList.configure(),
+      TaskItem.configure({
+        nested: true,
       }),
     ];
   },

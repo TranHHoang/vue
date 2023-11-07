@@ -1,0 +1,50 @@
+:where(.Editor) {
+  h1 {
+    font-size: 1.875em;
+  }
+
+  h2 {
+    font-size: 1.5em;
+  }
+
+  h3 {
+    font-size: 1.25em;
+  }
+
+  blockquote {
+    border-left: 3px solid white;
+    padding-left: 14px;
+  }
+
+  ul[data-type="taskList"] {
+    padding: 0;
+    list-style: none;
+
+    p {
+      margin: 0;
+    }
+
+    li {
+      display: flex;
+
+      > label {
+        flex: 0 0 auto;
+        margin-right: 0.5rem;
+        user-select: none;
+      }
+
+      > div {
+        flex: 1 1 auto;
+      }
+
+      ul li,
+      ol li {
+        display: list-item;
+      }
+
+      ul[data-type="taskList"] > li {
+        display: flex;
+      }
+    }
+  }
+}
