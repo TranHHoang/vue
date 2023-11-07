@@ -10,6 +10,7 @@
     "tauri": "tauri"
   },
   "dependencies": {
+    "@floating-ui/vue": "^1.0.2",
     "@tauri-apps/api": "^1.5.1",
     "@tiptap/core": "^2.1.12",
     "@tiptap/extension-bubble-menu": "^2.1.12",
